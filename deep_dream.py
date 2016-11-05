@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import urllib.request
 import os
 import zipfile
+import glob
 
 def main():
     #Step 1 - download google's pre-trained neural network
@@ -79,7 +80,8 @@ def main():
     def showarray(a):
         a = np.uint8(np.clip(a, 0, 1)*255)
         plt.imshow(a)
-        plt.show()
+        plt.pause(0.05)
+        #plt.show()
         
     def visstd(a, s=0.1):
         '''Normalize the image range for visualization'''
@@ -168,9 +170,39 @@ def main():
             
             #this will usually be like 3 or 4 octaves
             #Step 5 output deep dream image via matplotlib
-            showarray(img/255.0)
+        showarray(img/255.0)
             
-         
+
+    def render_deepdreamvideo(t_obj,
+                         iter_n=10, step=1.5, octave_n=4, octave_scale=1.4):
+        t_score = tf.reduce_mean(t_obj) # defining the optimization objective
+        t_grad = tf.gradients(t_score, t_input)[0] # behold the power of automatic differentiation!
+	# split the image into a number of octaves
+	for filename in glob.glob('/home/rahuldeo/sirajology/deep_dream_1/video/*.jpg'):
+		img0 = PIL.Image.open(filename)
+		img0 = np.float32(img0)
+		img = img0
+		octaves = []
+		for _ in range(octave_n-1):
+		    hw = img.shape[:2]
+		    lo = resize(img, np.int32(np.float32(hw)/octave_scale))
+		    hi = img-resize(lo, hw)
+		    img = lo
+		    octaves.append(hi)
+		
+		# generate details octave by octave
+		for octave in range(octave_n):
+		    if octave>0:
+		        hi = octaves[-octave]
+		        img = resize(img, hi.shape[:2])+hi
+		    for _ in range(iter_n):
+		        g = calc_grad_tiled(img, t_grad)
+		        img += g*(step / (np.abs(g).mean()+1e-7))
+		    
+		    #this will usually be like 3 or 4 octaves
+		    #Step 5 output deep dream image via matplotlib
+		showarray(img/255.0)
+		 
   
    	#Step 3 - Pick a layer to enhance our image
     layer = 'mixed4d_3x3_bottleneck_pre_relu'
@@ -181,8 +213,8 @@ def main():
     img0 = np.float32(img0)
      
     #Step 4 - Apply gradient ascent to that layer
-    render_deepdream(tf.square(T('mixed4c')), img0)
-      
+    #render_deepdream(tf.square(T('mixed4c')), img0)
+    render_deepdreamvideo(tf.square(T('mixed4c')))  
   
 if __name__ == '__main__':
     main()

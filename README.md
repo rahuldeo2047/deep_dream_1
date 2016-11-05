@@ -31,13 +31,22 @@ copy paste the tensorflow_inception_graph.pb
 
 in data folder
 
+
+Use to extract frames : http://stackoverflow.com/questions/8679390/ffmpeg-extracting-20-images-from-a-video-of-variable-length
+
+ffmpeg -i scenary.mov -r 2 -f image2 output_%05d.jpg
+
+Put all frames in a folder ./video
+
 ##Demo Usage
 
 Once dependencies installed via pip, run the demo script in terminal via
 
 ```
-python deep_dream.py
+python deep_dream_1.py
 ```
+
+Use to make video ffmpeg -f image2 -r 2 -i output_%05d.jpg -vcodec mpeg4 -y movie.mp4
 
 ##Challenge statement
 
@@ -47,10 +56,13 @@ The instructions are
 
 *HINT* Think of a video as a collection of images (frames). 
 
-If you want to use your own template, that's fine too. Submit your code in the comments section and I'll announce the winner in
-the next video. Good luck!
+##Output
+
+https://www.youtube.com/watch?v=VMuTKClTazk
 
 ##Credits
 
 Always [Sirajology](https://github.com/llSourcell)
 Thanks Google and [Liu](https://github.com/LiuzcEECS) I've reformatted this code to make it easier to grok. 
+
+free video from : https://www.videezy.com/nature/3309-aerial-view-of-mountain-peaks-free-stock-footage
