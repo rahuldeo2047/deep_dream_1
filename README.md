@@ -1,12 +1,12 @@
 # deep_dream_challenge
 Deep Dream Challenge code by @SIrajology on [Youtube](https://youtu.be/MrBzgvUNr4w)
 
-##Overview
+## Overview
 
 This is the code for the Deep Dream challenge for 'Learn Python for Data Science #5' by @Sirajology on [YouTube](https://youtu.be/MrBzgvUNr4wY). The code uses the Tensorflow Machine Learning library to generate a trippy image
 from a given input image. 
 
-##Dependencies
+## Dependencies
 
 * numpy (http://www.numpy.org/)
 * functools (usually comes preinstalled with python [link](http://stackoverflow.com/questions/17871784/installing-functools-gives-me-attributeerror-module-object-has-no-attribute-c))
@@ -38,7 +38,7 @@ ffmpeg -i scenary.mov -r 2 -f image2 output_%05d.jpg
 
 Put all frames in a folder ./video
 
-##Demo Usage
+## Demo Usage
 
 Once dependencies installed via pip, run the demo script in terminal via
 
@@ -48,7 +48,7 @@ python deep_dream_1.py
 
 Use to make video ffmpeg -f image2 -r 2 -i output_%05d.jpg -vcodec mpeg4 -y movie.mp4
 
-##Challenge statement
+## Challenge statement
 
 The instructions are 
 
@@ -56,11 +56,11 @@ The instructions are
 
 *HINT* Think of a video as a collection of images (frames). 
 
-##Output
+## Output
 
 https://www.youtube.com/watch?v=VMuTKClTazk
 
-##Credits
+## Credits
 
 Always [Sirajology](https://github.com/llSourcell)
 Thanks Google and [Liu](https://github.com/LiuzcEECS) I've reformatted this code to make it easier to grok. 
